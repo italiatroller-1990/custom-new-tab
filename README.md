@@ -1,6 +1,7 @@
 # Italia Troller's custom New Tab
 ## Custom new tab made in HTML and CSS with Gruvbox colorscheme
 ## Featuring:
+- Search powered by DuckDuckGo
 - Gmail
 - YouTube
 - GitHub
