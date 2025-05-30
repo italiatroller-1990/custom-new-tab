@@ -6,4 +6,4 @@
 - GitHub
 - Reddit
 - Duolingo
-# Guide to install and use it, see GUIDE.md
+# Guide to install and use it, see [GUIDE.md](https://github.com/italiatroller-1990/custom-new-tab/blob/main/GUIDE.md)
