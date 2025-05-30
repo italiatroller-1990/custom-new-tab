@@ -6,5 +6,5 @@
 - YouTube
 - GitHub
 - Reddit
-- Duolingo
+- Duolingo (SPANISH OR VANISH)
 # Guide to install and use it, see [GUIDE.md](https://github.com/italiatroller-1990/custom-new-tab/blob/main/GUIDE.md)
