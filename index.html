@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New Tab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #282828;
+      --fg: #ebdbb2;
+      --red: #cc241d;
+      --green: #98971a;
+      --yellow: #d79921;
+      --blue: #458588;
+      --purple: #b16286;
+      --aqua: #689d6a;
+      --gray: #a89984;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--fg);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 800px;
+      padding: 20px;
+    }
+
+    #clock-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    #time {
+      font-size: 48px;
+      font-weight: 600;
+      color: var(--yellow);
+    }
+
+    #date {
+      font-size: 20px;
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+
+    .analog-clock {
+      width: 120px;
+      height: 120px;
+      border: 6px solid var(--fg);
+      border-radius: 50%;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .hand {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: left center;
+      transform: rotate(90deg);
+      border-radius: 2px;
+    }
+
+    .hand.hour {
+      width: 35%;
+      height: 4px;
+      background: var(--yellow);
+    }
+
+    .hand.minute {
+      width: 45%;
+      height: 3px;
+      background: var(--blue);
+    }
+
+    .hand.second {
+      width: 50%;
+      height: 2px;
+      background: var(--red);
+    }
+
+    .search-box {
+      margin-bottom: 40px;
+    }
+
+    input[type="text"] {
+      padding: 12px 20px;
+      width: 400px;
+      max-width: 90vw;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      background-color: var(--gray);
+      color: var(--bg);
+    }
+
+    input:focus {
+      outline: 2px solid var(--blue);
+    }
+
+    .icons {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: var(--fg);
+      padding: 10px;
+      border-radius: 8px;
+      transition: outline 0.2s ease-in-out;
+    }
+
+    .icon:hover {
+      outline: 2px solid var(--aqua);
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .icon img {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 8px;
+    }
+
+    .icon span {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="clock-container">
+      <div class="analog-clock">
+        <div class="hand hour" id="hour-hand"></div>
+        <div class="hand minute" id="minute-hand"></div>
+        <div class="hand second" id="second-hand"></div>
+      </div>
+      <div id="time">--:--:--</div>
+      <div id="date">-- --, ----</div>
+    </div>
+
+    <form class="search-box" action="https://duckduckgo.com/" method="GET">
+      <input type="text" name="q" placeholder="Search with DuckDuckGo...">
+    </form>
+
+    <div class="icons">
+      <a class="icon" href="https://mail.google.com" target="_blank">
+        <img src="https://img.icons8.com/color/96/000000/gmail.png" alt="Gmail">
+        <span>Gmail</span>
+      </a>
+      <a class="icon" href="https://youtube.com" target="_blank">
+        <img src="https://img.icons8.com/color/96/000000/youtube-play.png" alt="YouTube">
+        <span>YouTube</span>
+      </a>
+      <a class="icon" href="https://github.com" target="_blank">
+        <img src="https://img.icons8.com/ios-filled/100/ffffff/github.png" alt="GitHub">
+        <span>GitHub</span>
+      </a>
+      <a class="icon" href="https://reddit.com" target="_blank">
+        <img src="https://img.icons8.com/color/96/000000/reddit.png" alt="Reddit">
+        <span>Reddit</span>
+      </a>
+      <a class="icon" href="https://www.duolingo.com/" target="_blank">
+        <img src="https://img.icons8.com/color/96/000000/duolingo-logo.png" alt="Duolingo">
+        <span>Duolingo</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+
+      // Digital time
+      const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      document.getElementById('time').textContent = timeString;
+
+      // Date
+      const dateString = now.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      document.getElementById('date').textContent = dateString;
+
+      // Analog
+      const seconds = now.getSeconds();
+      const minutes = now.getMinutes();
+      const hours = now.getHours();
+
+      const secondDeg = seconds * 6;
+      const minuteDeg = minutes * 6 + seconds * 0.1;
+      const hourDeg = (hours % 12) * 30 + minutes * 0.5;
+
+      document.getElementById('second-hand').style.transform = `rotate(${secondDeg}deg)`;
+      document.getElementById('minute-hand').style.transform = `rotate(${minuteDeg}deg)`;
+      document.getElementById('hour-hand').style.transform = `rotate(${hourDeg}deg)`;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
+
